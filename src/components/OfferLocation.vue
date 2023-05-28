@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { submitLocation } from '../db'
+import { getSendLocationSettings, setSendLocationSettings } from '../user'
 
-const sendingLocation = ref(window.localStorage.sendLocation == '1')
+const sendingLocation = ref(getSendLocationSettings())
 const watch = ref(0)
 
 function startSending() {
@@ -13,14 +14,26 @@ function startSending() {
     }, p.timestamp)
   })
   sendingLocation.value = true
-  window.localStorage.setItem('sendLocation', '1')
+  setSendLocationSettings(true)
 }
 
 function stopSending() {
   navigator.geolocation.clearWatch(watch.value)
   sendingLocation.value = false
-  window.localStorage.setItem('sendLocation', '0')
+  setSendLocationSettings(false)
 }
+
+onMounted(() => {
+  if (sendingLocation.value) {
+    startSending()
+  }
+})
+
+onUnmounted(() => {
+  if (watch.value) {
+    navigator.geolocation.clearWatch(watch.value)
+  }
+})
 
 </script>
 <template>

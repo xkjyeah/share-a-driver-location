@@ -72,6 +72,7 @@ function computePosition(r: LocationWithKey) {
   position: absolute;
   width: 40px;
   height: 40px;
+  box-shadow: 0.1em 0.1em 1em rgba(0,0,0,1.0)
 }
 </style>
 <template>
