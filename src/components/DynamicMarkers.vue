@@ -4,6 +4,7 @@ import { watchLocations } from '../db'
 import type { LatLng } from '../db'
 import { pathParams } from '../pathParams'
 import * as MercatorProjection from 'mercator-projection'
+import _ from 'lodash'
 
 const props = defineProps<{
   width: number
@@ -23,10 +24,13 @@ const HEIGHT_PX = 40
 
 watchLocations(pathParams().sharingKey, 120 * 60e3, (locations: KeyedLocation | null): void => {
   if (locations) {
-    dataToShow.value = Object.entries(locations).map(([key, value]) => ({
+    // Sort by timestamp, so that the latest timestamp
+    // comes last... which means they will have the highest effective
+    // z-index
+    dataToShow.value = _.sortBy(Object.entries(locations).map(([key, value]) => ({
       ...value,
       key
-    }))
+    })), (r: LocationWithKey) => r.timestamp)
   } else {
     dataToShow.value = []
   }
