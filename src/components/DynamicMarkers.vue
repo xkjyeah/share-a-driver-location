@@ -5,6 +5,7 @@ import type { LatLng } from '../db'
 import { pathParams } from '../pathParams'
 import * as MercatorProjection from 'mercator-projection'
 import _ from 'lodash'
+import { HIDE_TIMEOUT_MS, STALE_TIMEOUT_MS } from '../dimensions'
 
 const props = defineProps<{
   width: number
@@ -22,7 +23,7 @@ const dataToShow = Vue.ref([] as LocationWithKey[])
 const WIDTH_PX = 40
 const HEIGHT_PX = 40
 
-watchLocations(pathParams().sharingKey, 120 * 60e3, (locations: KeyedLocation | null): void => {
+watchLocations(pathParams().sharingKey, HIDE_TIMEOUT_MS, (locations: KeyedLocation | null): void => {
   if (locations) {
     // Sort by timestamp, so that the latest timestamp
     // comes last... which means they will have the highest effective
@@ -57,7 +58,7 @@ function computePosition(r: LocationWithKey) {
   }
 
   const perc = (parseInt(r.key.substring(r.key.length - 4), 16) / 65536) * 360
-  const isStale = (Date.now() - r.timestamp) > 30e3
+  const isStale = (Date.now() - r.timestamp) > STALE_TIMEOUT_MS
 
   return {
     left: Math.round(dimensions.width / 2 + diff.x - WIDTH_PX / 2) + 'px',
