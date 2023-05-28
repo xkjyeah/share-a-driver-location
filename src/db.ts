@@ -3,7 +3,6 @@ import {getDatabase, ref, query, set, orderByChild, limitToFirst, startAfter, on
 import { pathParams } from './pathParams';
 import { getUser } from './user';
 
-// TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCVPkgR8wpTD-PtV14m6AbUHR8iWv0WqSc",
   authDomain: "simple-location-sharing.firebaseapp.com",
@@ -42,9 +41,7 @@ export function watchLocations(sharingKey: string, timeout: number, callback: (s
       limitToFirst(10)
     ),
     (v) => {
-      // debugger;
       callback(v.val());
-      console.log(v.val())
     }
   );
 }

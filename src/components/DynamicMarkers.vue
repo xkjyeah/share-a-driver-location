@@ -21,11 +21,15 @@ const dataToShow = Vue.ref([] as LocationWithKey[])
 const WIDTH_PX = 40
 const HEIGHT_PX = 40
 
-watchLocations(pathParams().sharingKey, 120 * 60e3, (locations: KeyedLocation): void => {
-  dataToShow.value = Object.entries(locations).map(([key, value]) => ({
-    ...value,
-    key
-  }))
+watchLocations(pathParams().sharingKey, 120 * 60e3, (locations: KeyedLocation | null): void => {
+  if (locations) {
+    dataToShow.value = Object.entries(locations).map(([key, value]) => ({
+      ...value,
+      key
+    }))
+  } else {
+    dataToShow.value = []
+  }
 })
 
 function makeLabel(r: LocationWithKey) {

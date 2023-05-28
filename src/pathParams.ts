@@ -30,7 +30,7 @@ export function syncPath(params: PathParams) {
 export function pathParams(): PathParams {
   const urlParsed = new URL(window.location.href);
   const center = urlParsed.searchParams.get("center") || "1.38,103.8";
-  const zoom = urlParsed.searchParams.get("zoom") || "3";
+  const zoom = urlParsed.searchParams.get("zoom") || "13";
   const sharingKey = urlParsed.searchParams.get("sharingKey") || randomString();
   const [latStr, lngStr] = center.split(',')
 

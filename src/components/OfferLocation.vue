@@ -24,14 +24,16 @@ function stopSending() {
 <template>
   <template v-if="sendingLocation">
     <button
-      :style="{right: '10px', top: '10px', position: 'absolute'}"
+      id="send-location"
+      :style="{right: '10px', top: '10px', position: 'fixed'}"
       @click="stopSending"
-    >Sending location</button>
+    >Stop sending location</button>
   </template>
   <template v-else>
     <button
-      :style="{right: '10px', top: '10px', position: 'absolute'}"
+      id="send-location"
+      :style="{right: '10px', top: '10px', position: 'fixed'}"
       @click="startSending"
-    >Not sending location</button>
+    >Send location</button>
   </template>
 </template>
