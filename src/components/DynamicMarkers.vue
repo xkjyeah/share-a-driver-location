@@ -53,12 +53,15 @@ function computePosition(r: LocationWithKey) {
   }
 
   const perc = (parseInt(r.key.substring(r.key.length - 4), 16) / 65536) * 360
+  const isStale = (Date.now() - r.timestamp) > 30e3
 
   return {
     left: Math.round(dimensions.width / 2 + diff.x - WIDTH_PX / 2) + 'px',
     top: Math.round(dimensions.height / 2 + diff.y - HEIGHT_PX / 2) + 'px',
 
-    'background-color': `hsl(${perc} 60% 80%)`
+    'background-color': `hsl(${perc} 60% 80%)`,
+    opacity: isStale ? 0.5 : 1.0,
+    'z-index': isStale ? 10 : 1,
   }
 }
 </script>
