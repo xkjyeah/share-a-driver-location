@@ -1,4 +1,4 @@
-import { LatLng } from "./db";
+import type { LatLng } from "./db";
 
 export type PathParams = {
   zoom: string,
