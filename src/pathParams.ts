@@ -1,8 +1,11 @@
+import { LatLng } from "./db";
 
 export type PathParams = {
   zoom: string,
   center: string,
   sharingKey: string,
+  parsedZoom: number,
+  parsedCenter: LatLng,
 }
 
 function randomString() {
@@ -29,7 +32,17 @@ export function pathParams(): PathParams {
   const center = urlParsed.searchParams.get("center") || "1.38,103.8";
   const zoom = urlParsed.searchParams.get("zoom") || "3";
   const sharingKey = urlParsed.searchParams.get("sharingKey") || randomString();
+  const [latStr, lngStr] = center.split(',')
 
-  return {center, zoom, sharingKey}
+  return {
+    center,
+    zoom,
+    sharingKey,
+    parsedZoom: parseFloat(zoom),
+    parsedCenter: {
+      lat: parseFloat(latStr),
+      lng: parseFloat(lngStr),
+    }
+  }
 }
 

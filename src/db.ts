@@ -16,7 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-type LatLng = {
+export type LatLng = {
   lat: number,
   lng: number,
 }

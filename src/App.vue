@@ -21,6 +21,6 @@ const {zoom, center} = pathParams()
     />
 
     <OfferLocation />
-    <DynamicMarkers />
+    <DynamicMarkers :width="mapWidth" :height="mapHeight" />
   </div>
 </template>
