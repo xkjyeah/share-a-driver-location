@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { submitLocation } from '../db'
 
-const sendingLocation = ref(false)
+const sendingLocation = ref(window.localStorage.sendLocation == '1')
 const watch = ref(0)
 
 function startSending() {
@@ -13,11 +13,13 @@ function startSending() {
     }, p.timestamp)
   })
   sendingLocation.value = true
+  window.localStorage.setItem('sendLocation', '1')
 }
 
 function stopSending() {
   navigator.geolocation.clearWatch(watch.value)
   sendingLocation.value = false
+  window.localStorage.setItem('sendLocation', '0')
 }
 
 </script>
