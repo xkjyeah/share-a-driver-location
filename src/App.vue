@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import StaticMap from './components/StaticMap.vue'
+import WakeLock from './components/WakeLock.vue'
 import DynamicMarkers from './components/DynamicMarkers.vue'
 import OfferLocation from './components/OfferLocation.vue'
 import {pathParams} from './pathParams'
@@ -14,6 +15,7 @@ const {zoom, center} = pathParams()
 
 <template>
   <div :style="{position: 'relative', width: mapWidth + 'px', height: mapHeight + 'px', overflow: 'hidden'}">
+    <WakeLock />
     <StaticMap
       :center="center"
       :zoom="zoom"
