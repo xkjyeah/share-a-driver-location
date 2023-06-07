@@ -20,8 +20,8 @@ export interface LocationWithKey extends Location {
 export type Dimensions = { width: number; height: number }
 
 const dataToShow = Vue.ref([] as LocationWithKey[])
-const WIDTH_PX = 42
-const HEIGHT_PX = 62
+const WIDTH_PX = 52
+const HEIGHT_PX = 67
 
 watchLocations(
   pathParams().sharingKey,
@@ -87,8 +87,8 @@ function computePosition(r: LocationWithKey) {
   vertical-align: top;
   padding-top: 0.5em;
   position: absolute;
-  width: 42px;
-  height: 62px;
+  width: 52px;
+  height: 72px;
 }
 
 .marker {
@@ -99,15 +99,19 @@ function computePosition(r: LocationWithKey) {
 </style>
 <template>
   <div v-for="loc in dataToShow" :key="loc.key" class="circle" :style="computePosition(loc)">
-    <svg :width="42" :height="62" style="position: absolute; left: 0; top: 0">
+    <svg :width="52" :height="72" style="position: absolute; left: 0; top: 0">
+      <defs>
+        <filter id="shadow">
+          <feDropShadow dx="1" dy="1" stdDeviation="3" />
+        </filter>
+      </defs>
       <path
         d="
-M 3.76 31
-A 20 20 1 1 1 38.32 31
-L 21 61
-
+M 8.76 36
+A 20 20 1 1 1 43.32 36
+L 26 66
 Z"
-        :style="{ fill: computeColor(loc) }"
+        :style="{ fill: computeColor(loc), filter: 'url(#shadow)' }"
         class="marker"
       />
     </svg>
