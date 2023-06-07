@@ -4,6 +4,7 @@ import StaticMap from './components/StaticMap.vue'
 import WakeLock from './components/WakeLock.vue'
 import DynamicMarkers from './components/DynamicMarkers.vue'
 import OfferLocation from './components/OfferLocation.vue'
+import SelfLocation from './components/SelfLocation.vue'
 import {pathParams} from './pathParams'
 import {IMAGE_WIDTH, IMAGE_HEIGHT} from './dimensions'
 
@@ -23,6 +24,7 @@ const {zoom, center} = pathParams()
       :mapHeight="mapHeight"
     />
     <DynamicMarkers :width="mapWidth" :height="mapHeight" />
+    <SelfLocation :width="mapWidth" :height="mapHeight" />
   </div>
   <OfferLocation />
 </template>
