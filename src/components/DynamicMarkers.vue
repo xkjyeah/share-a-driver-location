@@ -19,6 +19,7 @@ export interface LocationWithKey extends Location {
 }
 export type Dimensions = { width: number; height: number }
 
+const now = Vue.ref(Date.now());
 const dataToShow = Vue.ref([] as LocationWithKey[])
 const WIDTH_PX = 52
 const HEIGHT_PX = 67
@@ -70,7 +71,7 @@ function computePosition(r: LocationWithKey) {
     y: (pointPx.y - centerPx.y) * scale
   }
 
-  const isStale = Date.now() - r.timestamp > STALE_TIMEOUT_MS
+  const isStale = now.value - r.timestamp > STALE_TIMEOUT_MS
 
   return {
     left: Math.round(dimensions.width / 2 + diff.x - WIDTH_PX / 2) + 'px',
@@ -80,6 +81,15 @@ function computePosition(r: LocationWithKey) {
     'z-index': isStale ? 10 : 1
   }
 }
+
+let updateNowInterval: ReturnType<typeof setInterval> = null
+Vue.onMounted(() => {
+  updateNowInterval = setInterval(() => now.value = Date.now(), 10000)
+})
+Vue.onUnmounted(() => {
+  clearInterval(updateNowInterval);
+})
+
 </script>
 <style scoped>
 .circle {
